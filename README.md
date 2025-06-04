@@ -55,7 +55,8 @@ pip install -r requirements.txt
 ```
 
 #### 3. Dataset Download & Loading
-**(1) Download datasets** from this [Google Drive folder](https://drive.google.com/drive/folders/1o3V48IhgUDwzKeZaDYpMXa_bXX3O5JZh?usp=drive_link)
+**(1) Download datasets** from the [Quark Netdisk (夸克网盘)](https://pan.quark.cn/s/e0395f7e2be1)
+🔑**Extraction code**: WfcN
 
 **(2) Folder structure**:
 ```bash
