@@ -76,6 +76,28 @@ sh train.sh
 
 ## 🙏 Acknowledgments
 ##### We gratefully acknowledge the following foundational works that inspired and supported this research:
+
+```bibtex
+@article{DBLP:journals/pami/ShiGHW24,
+  author       = {Fengyuan Shi and
+                  Ruopeng Gao and
+                  Weilin Huang and
+                  Limin Wang},
+  title        = {Dynamic {MDETR:} {A} Dynamic Multimodal Transformer Decoder for Visual
+                  Grounding},
+  journal      = {{IEEE} Trans. Pattern Anal. Mach. Intell.},
+  volume       = {46},
+  number       = {2},
+  pages        = {1181--1198},
+  year         = {2024},
+  url          = {https://doi.org/10.1109/TPAMI.2023.3328185},
+  doi          = {10.1109/TPAMI.2023.3328185},
+  timestamp    = {Thu, 11 Apr 2024 07:29:43 +0200},
+  biburl       = {https://dblp.org/rec/journals/pami/ShiGHW24.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+```
+
 ```bibtex
 @article{DBLP:journals/tgrs/ZhanXY23,
   author       = {Yang Zhan and
@@ -91,6 +113,27 @@ sh train.sh
   doi          = {10.1109/TGRS.2023.3250471},
   timestamp    = {Mon, 22 Apr 2024 14:53:49 +0200},
   biburl       = {https://dblp.org/rec/journals/tgrs/ZhanXY23.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+```
+
+```bibtex
+@article{DBLP:journals/tgrs/LiWXZW24,
+  author       = {Ke Li and
+                  Di Wang and
+                  Haojie Xu and
+                  Haodi Zhong and
+                  Cong Wang},
+  title        = {Language-Guided Progressive Attention for Visual Grounding in Remote
+                  Sensing Images},
+  journal      = {{IEEE} Trans. Geosci. Remote. Sens.},
+  volume       = {62},
+  pages        = {1--13},
+  year         = {2024},
+  url          = {https://doi.org/10.1109/TGRS.2024.3423663},
+  doi          = {10.1109/TGRS.2024.3423663},
+  timestamp    = {Wed, 11 Dec 2024 17:20:49 +0100},
+  biburl       = {https://dblp.org/rec/journals/tgrs/LiWXZW24.bib},
   bibsource    = {dblp computer science bibliography, https://dblp.org}
 }
 ```
@@ -119,50 +162,6 @@ sh train.sh
   bibsource    = {dblp computer science bibliography, https://dblp.org}
 }
 ```
-
-```bibtex
-@article{DBLP:journals/tgrs/LiWXZW24,
-  author       = {Ke Li and
-                  Di Wang and
-                  Haojie Xu and
-                  Haodi Zhong and
-                  Cong Wang},
-  title        = {Language-Guided Progressive Attention for Visual Grounding in Remote
-                  Sensing Images},
-  journal      = {{IEEE} Trans. Geosci. Remote. Sens.},
-  volume       = {62},
-  pages        = {1--13},
-  year         = {2024},
-  url          = {https://doi.org/10.1109/TGRS.2024.3423663},
-  doi          = {10.1109/TGRS.2024.3423663},
-  timestamp    = {Wed, 11 Dec 2024 17:20:49 +0100},
-  biburl       = {https://dblp.org/rec/journals/tgrs/LiWXZW24.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
-}
-```
-
-```bibtex
-@article{DBLP:journals/pami/ShiGHW24,
-  author       = {Fengyuan Shi and
-                  Ruopeng Gao and
-                  Weilin Huang and
-                  Limin Wang},
-  title        = {Dynamic {MDETR:} {A} Dynamic Multimodal Transformer Decoder for Visual
-                  Grounding},
-  journal      = {{IEEE} Trans. Pattern Anal. Mach. Intell.},
-  volume       = {46},
-  number       = {2},
-  pages        = {1181--1198},
-  year         = {2024},
-  url          = {https://doi.org/10.1109/TPAMI.2023.3328185},
-  doi          = {10.1109/TPAMI.2023.3328185},
-  timestamp    = {Thu, 11 Apr 2024 07:29:43 +0200},
-  biburl       = {https://dblp.org/rec/journals/pami/ShiGHW24.bib},
-  bibsource    = {dblp computer science bibliography, https://dblp.org}
-}
-
-```
-
 
 ## 📜 Citation
 ```bibtex
