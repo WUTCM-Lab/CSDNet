@@ -58,6 +58,7 @@ pip install -r requirements.txt
 **(1) Download datasets** from this [Google Drive folder](https://drive.google.com/drive/folders/1o3V48IhgUDwzKeZaDYpMXa_bXX3O5JZh?usp=drive_link)
 
 **(2) Folder structure**:
+```bash
 image_root
 ├── DIOR_RSVG/
 └──── JPEGImages
@@ -66,6 +67,7 @@ image_root
 ├── VRSBench_Ref/
 ├──── Images_train
 └──── Images_val
+```
 
 ## 🏋️ Training
 ```bash
