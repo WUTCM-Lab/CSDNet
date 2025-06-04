@@ -21,7 +21,7 @@
 
 ## 📊 Supported Datasets
 #### We provide support for three remote sensing visual grounding datasets:
-![alt text](datasets.png)
+![alt text](datasets.png){: width="70%"}
 
 ##### Dataset splits and annotations are organized in the `data/` directory:
 ```bash
