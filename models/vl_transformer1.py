@@ -14,9 +14,6 @@ import torch.nn.functional as F
 from torch import nn, Tensor
 
 
-# 视觉特征进行self attn后再利用语言作为查询去解码
-
-
 class VLTransformer(nn.Module):
     
     def __init__(self, d_model=256, nhead=8, dim_feedforward=2048, dropout=0.1, activation="relu"):
@@ -48,7 +45,7 @@ class VLTransformer(nn.Module):
         text_feat = self.norm3(text_feat)
         output, attn = self.decoder(
             text_feat, visu_feat, text_mask, visu_mask, text_pos, visu_pos)
-
+        
         # if self.norm2 is not None:
         #     output = self.norm2(output)
            
@@ -59,9 +56,9 @@ class TransformerDecoderLayer(nn.Module):
 
     def __init__(self, d_model, nhead, dim_feedforward=2048, dropout=0.1, activation="relu"):
         super().__init__()
-        self.self_attn = nn.MultiheadAttention(d_model, nhead, dropout=dropout)
-        self.dropout1 = nn.Dropout(dropout)
-        self.norm1 = nn.LayerNorm(d_model)
+        # self.self_attn = nn.MultiheadAttention(d_model, nhead, dropout=dropout)
+        # self.dropout1 = nn.Dropout(dropout)
+        # self.norm1 = nn.LayerNorm(d_model)
         
         self.cros_attn = nn.MultiheadAttention(d_model, nhead, dropout=dropout)
         # Implementation of Feedforward model

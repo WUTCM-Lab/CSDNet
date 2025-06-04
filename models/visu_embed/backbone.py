@@ -117,9 +117,9 @@ class Joiner(nn.Sequential):
         return out, pos
 
 
-def build_backbone(args):  # 是否考虑多尺度特征
+def build_backbone(args):  
     position_embedding = build_position_encoding(args)  # 2d sine
-    backbone = Backbone(args.backbone, args.vl_multiscale, args.dilation)
+    backbone = Backbone(args.backbone, args.dilation)
     model = Joiner(backbone, position_embedding, 
                 down_sample=args.last_dwsample, down_dim=args.last_channels)
     model.num_channels = backbone.num_channels

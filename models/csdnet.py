@@ -8,7 +8,7 @@ from torch.nn.functional import grid_sample
 from .visu_embed.detr import build_detr
 from .text_embed.bert import build_bert
 from .vl_transformer1 import build_vl_transformer1
-from .vl_transformer2 import build_vl_transformer2
+# from .vl_transformer2 import build_vl_transformer2
 from .vl_embded1 import build_vl_encoder1 as build_vl_encoder
 
 
@@ -33,7 +33,7 @@ class CSDNet(nn.Module):
             self.vl_encoder = None
                 
         # decoding        
-        self.st_dec_dyn = args.st_dec_dyn  # 动态解码层
+        self.st_dec_dyn = args.st_dec_dyn  
         self.vl_dec_num = args.vl_dec_num    
         if self.st_dec_dyn:    
             self.uniform_learnable = args.uniform_learnable
@@ -52,9 +52,9 @@ class CSDNet(nn.Module):
             # load text
             self.in_load = nn.MultiheadAttention(hidden_dim, num_heads=8, dropout=0.1)
             self.vl_transformer = nn.ModuleList(
-                [build_vl_transformer1(args) for _ in range(self.vl_dec_num)])  # 先encoder后decoder
+                [build_vl_transformer1(args) for _ in range(self.vl_dec_num)])  
             
-            if self.uniform_grid:  # 网格采样
+            if self.uniform_grid:  # grid sampling
                 h = int(math.sqrt(self.in_points))
                 w = h
                 step = 1 / h
@@ -67,8 +67,9 @@ class CSDNet(nn.Module):
                 self.initial_sampled_points = torch.nn.Parameter(grid.unsqueeze(0))  # (1,in_points,2)
             
         else:
-            # compare 2
-            self.vl_transformer = build_vl_transformer2(args)  # 其他对比解码层
+            # compare 
+            # self.vl_transformer = build_vl_transformer2(args)  
+            pass
         
         # detection head
         self.bbox_embed = MLP(hidden_dim, hidden_dim, 4, 3)
@@ -92,19 +93,19 @@ class CSDNet(nn.Module):
                 xy_offsets = self.offset_generators[stage](sampling_query).reshape(bs, self.in_points, 2)
                 sampled_points = (xy_offsets.permute(1, 0, 2) + referent_point).permute(1, 0, 2)  # (bs,in_points,2)
             else:
-                sampled_points = self.initial_sampled_points.clone().repeat(bs, 1, 1)  # 最开始的时候在整个图中网格采样
+                sampled_points = self.initial_sampled_points.clone().repeat(bs, 1, 1)  # At the beginning, the grid sampling is done in the whole picture.
         else:
             xy_offsets = self.offset_generators[stage](sampling_query).reshape(bs, self.in_points, 2)
             sampled_points = (xy_offsets.permute(1, 0, 2) + referent_point).permute(1, 0, 2)  # (bs,in_points,2)
-        feature_map = feature_map.reshape(bs, channel, self.visual_feature_map_h, self.visual_feature_map_w) # (bs,channel,h,w)
-        pos = pos.reshape(bs, channel, self.visual_feature_map_h, self.visual_feature_map_w)  # (bs,channel,h,w)
+        feature_map = feature_map.reshape(bs, channel, self.visual_feature_map_h, self.visual_feature_map_w) # (bs,dim,h,w)
+        pos = pos.reshape(bs, channel, self.visual_feature_map_h, self.visual_feature_map_w)  # (bs,dim,h,w)
 
         # [0,1] to [-1,1]
         sampled_points = (2 * sampled_points) - 1
 
         sampled_features = grid_sample(feature_map, sampled_points.unsqueeze(2), mode='bilinear', padding_mode='border',
-                                       align_corners=False).squeeze(-1)  # (bs,channel,in_points)
-        pe = grid_sample(pos, sampled_points.unsqueeze(2), mode='bilinear', padding_mode='border', align_corners=False).squeeze(-1) # (bs,channel,in_points)
+                                       align_corners=False).squeeze(-1)  # (bs,dim,in_points)
+        pe = grid_sample(pos, sampled_points.unsqueeze(2), mode='bilinear', padding_mode='border', align_corners=False).squeeze(-1) # (bs,dim,in_points)
 
         return sampled_features, pe
 
@@ -136,8 +137,8 @@ class CSDNet(nn.Module):
             vl_feat = vl_feat
         
         # split
-        visu_feat = vl_feat[:self.num_visu_token]  # (H*W,B,channel)
-        text_feat = vl_feat[self.num_visu_token:]  # (max_len,B,channel)
+        visu_feat = vl_feat[:self.num_visu_token]  # (H*W,B,dim)
+        text_feat = vl_feat[self.num_visu_token:]  # (max_len,B,dim)
                     
         # dynamic decoding
         pred_box = None
@@ -159,24 +160,17 @@ class CSDNet(nn.Module):
                 
                 # prediction head
                 text_feat, _ = vg_hs  # output, attn
-                text_select = (1 - text_mask * 1.0).unsqueeze(-1)  # (bs,max_len,1)
+                text_select = (1 - text_mask * 1.0).unsqueeze(-1)  # (bs,n,1)
                 text_select_num = text_select.sum(dim=1)  # (bs,1)                
                 # new language queries
-                vg_hs = (text_select * text_feat.permute(1,0,2)).sum(dim=1) / text_select_num  # (bs, channel)
+                vg_hs = (text_select * text_feat.permute(1,0,2)).sum(dim=1) / text_select_num  # (bs,dim)
                 
                 pred_box = self.bbox_embed(vg_hs).sigmoid()
                 # update reference point and sampling query
                 referent_point = pred_box[:, :2]
                 sampling_query = self.update_sampling_queries[i](torch.cat((vg_hs, sampling_query), dim=1))            
         else:
-            vg_hs, _ = self.vl_transformer(text_feat, visu_feat, text_mask, visu_mask, l_pos, v_pos)  # n,bs,dim
-            # prediction head
-            text_select = (1 - text_mask * 1.0).unsqueeze(-1)  # (bs,max_len,1)
-            text_select_num = text_select.sum(dim=1)  # (bs,1)                
-            # new language queries
-            vg_hs = (text_select * vg_hs.permute(1,0,2)).sum(dim=1) / text_select_num  # (bs, channel)
-                
-            pred_box = self.bbox_embed(vg_hs).sigmoid()
+            pass
 
         return pred_box
 
@@ -193,7 +187,6 @@ class MLP(nn.Module):
     def forward(self, x):
         for i, layer in enumerate(self.layers):
             x = F.relu(layer(x)) if i < self.num_layers - 1 else layer(x)
-            # x = F.relu(layer(x), inplace=True) if i < self.num_layers - 1 else layer(x)
         return x
 
 

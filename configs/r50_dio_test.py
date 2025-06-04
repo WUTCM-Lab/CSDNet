@@ -10,7 +10,7 @@ batch_size=20
 dataset='DIOR_RSVG'  # referit, unc, unc+, gref, gref_umd, flickr, DIOR_RSVG, OPT_RSVG, VRSBench_Ref
 imsize=800
 max_query_len=40
-model_type='ResNet'  # CLIP
+model_type='ResNet'  # 
 detr_model=None
 
 backbone='resnet50'  # resnet101
@@ -26,11 +26,11 @@ vl_enhancevit=True
 vl_crosAttn=True
 # dynamic dec
 st_dec_dyn=True 
-vl_dec_num=4  # 采样解码数量
+vl_dec_num=4  # the number of decoding layers
 uniform_learnable=True 
 uniform_grid=False
 in_points=32
 
-# 下面是消融实验的设置
-# 视觉和语言特征从骨干网络中提取后，在解码前的交互部分的编码层控制
-vl_enc_num=0  # vltrans的层数目
+# Below is the setup of the ablation experiment
+# After the visual and textual features are extracted from the backbone network, the encoding layer controls the interaction before decoding.
+vl_enc_num=0  

@@ -133,8 +133,8 @@ class GroundingDataset(data.Dataset):
                  bert_model='./checkpoints/bert-base-uncased', 
                  im_size=640):
         self.images = []
-        self.image_root = image_root  # 图像和标注的地址
-        self.split_root = split_root  # 图像划分的地址
+        self.image_root = image_root  # File paths for images and annotations
+        self.split_root = split_root  # File path for image partitions
         self.dataset = dataset
         
         self.transform = transform
@@ -142,7 +142,7 @@ class GroundingDataset(data.Dataset):
         self.split = split
         
         self.im_size = im_size
-        self.txt_len = max_query_len  # 设置文本最长值
+        self.txt_len = max_query_len  
         self.lstm = lstm
         self.tokenizer = BertTokenizer.from_pretrained(bert_model, do_lower_case=True)
         

@@ -75,8 +75,7 @@ def get_args_parser():
     parser.add_argument('--detr_enc_num', default=6, type=int)
     
     # new
-    parser.add_argument('--vl_multiscale', default=False, type=bool, help='启动resnet输出的特征进行multiscale')
-    parser.add_argument('--last_dwsample', default=False, type=bool, help='对resnet最后一层输出的特征下采样')
+    parser.add_argument('--last_dwsample', default=False, type=bool, help='Downsample the features of the last layer output of resnet')
     parser.add_argument('--last_channels', default=256, type=int)
     parser.add_argument('--vl_enhancevit', default=False, type=bool)
     parser.add_argument('--vl_crosAttn', default=False, type=bool)

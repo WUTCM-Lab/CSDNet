@@ -28,12 +28,12 @@ class VisionLanguageEncoder(nn.Module):
                 nn.init.xavier_uniform_(p)
 
     def forward(self, vl_feat, vl_mask, vl_pos):
-        visu_feat = vl_feat[:self.num_visu_token]  # [H*W,B,channel]
-        text_feat = vl_feat[self.num_visu_token:]  # [max_len,B,channel]
+        visu_feat = vl_feat[:self.num_visu_token]  # [H*W,B,dim]
+        text_feat = vl_feat[self.num_visu_token:]  # [max_len,B,dim]
         visu_mask = vl_mask[:,:self.num_visu_token]
         text_mask = vl_mask[:,self.num_visu_token:]
-        visu_pos = vl_pos[:self.num_visu_token]  # [H*W,B,channel]
-        text_pos = vl_pos[self.num_visu_token:]  # [max_len,B,channel]
+        visu_pos = vl_pos[:self.num_visu_token]  # [H*W,B,dim]
+        text_pos = vl_pos[self.num_visu_token:]  # [max_len,B,dim]
         
         # cros attn
         v_feat1, t_feat1 = self.blocks(
