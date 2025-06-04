@@ -12,8 +12,8 @@
 
 [📄 Paper](https://www.sciencedirect.com/science/article/pii/S1566253525003690#d1e1674) [🌐 Project Page](https://github.com/WUTCM-Lab/CSDNet) 
 
-## 🚀 Overview
 
+## 🚀 Overview
 #### CSDNet is a novel framework for remote sensing visual grounding that features:
 - A Context-driven Sparse Decoding Network (CSDNet) is proposed for RSVG, which enhances features by modeling multimodal context and performs cross-modal decoding using sparsely sampled visual features.
 - A Text-aware Fusion Module (TFM) is proposed, which adaptively modulates visual features using textual cues aggregated from image context to enhance text-related semantic representations. In addition, a Context-enhanced Interaction Module (CIM) is proposed to harmonize modal differences by modeling multimodal contexts.
@@ -41,28 +41,31 @@ data/
 
 ## 🛠 Installation
 
-##### 1. Clone this repository:
+#### 1. Clone this repository:
 ```bash
 git https://github.com/WUTCM-Lab/CSDNet.git
 cd CSDNet
 ```
 
-##### 2. Install dependencies:
+#### 2. Install dependencies:
 ```bash
 conda create -n csdnet python=3.8
 conda activate csdnet
 pip install -r requirements.txt
 ```
 
-##### 3. Download the dataset and place it in the image dataset folder according to the structure described below.
+#### 3. Dataset Download & Loading
+**(1) Download datasets** from this [Google Drive folder](https://drive.google.com/drive/folders/1o3V48IhgUDwzKeZaDYpMXa_bXX3O5JZh?usp=drive_link)
+
+**(2) Folder structure**:
 image_root
 ├── DIOR_RSVG/
-└── JPEGImages
+└──── JPEGImages
 ├── OPT_RSVG/
-└── Image
+└──── Image
 ├── VRSBench_Ref/
-├── Images_train
-└── Images_val
+├──── Images_train
+└──── Images_val
 
 ## 🏋️ Training
 ```bash
